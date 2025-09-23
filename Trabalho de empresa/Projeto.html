@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Hub - Blog da DevGames</title>
+  <link rel="stylesheet" href="style.css" />
+ 
+        <!-- Posts list -->
+        <article class="post" data-id="post-1">
+          <div class="meta">
+            <div class="avatar">DG</div>
+            <div>
+              <div class="logo">Shadowlight Hub</div>
+              <div class="small">Blog oficial - noticias e updates</div>
+            </div>
+          </div>
+          <h3 class="title">Atualização v1.4 — Novo mapa e balanceamentos</h3>
+          <p class="excerpt">Estamos lançando o mapa "Nebula Rift" com novas missões cooperativas e ajustes no balanceamento de armas. Veja detalhes e planos futuros.</p>
+          <div class="post-footer">
+            <div class="small">Tags: atualização, mapa, coop</div>
+            <div>
+              <button class="btn" onclick="openPost('post-1')">Ler e comentar</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="post" data-id="post-2">
+          <div class="meta">
+            <div class="avatar">AL</div>
+            <div>
+              <div class="author">Ana Lopes — Dev Sênior</div>
+              <div class="date">Publicado em 1 de setembro de 2025</div>
+            </div>
+          </div>
+          <h3 class="title">Diário do dev: como criamos o chefe "O Sussurro"</h3>
+          <p class="excerpt">Um relato técnico e artístico de como pensamos os padrões de ataque e a ambientação sonora do novo chefe.</p>
+          <div class="post-footer">
+            <div class="small">Tags: devlog, chefe, design</div>
+            <div>
+              <button class="btn" onclick="openPost('post-2')">Ler e comentar</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Post view (dinâmico) -->
+        <section id="post-view" class="post-view" aria-live="polite">
+          <button class="btn" onclick="closePost()" style="margin-bottom:12px;">Voltar à lista</button>
+          <div id="post-content"></div>
+
+          <div class="comments" id="comments-area">
+            <h4>Comentários</h4>
+            <div id="comments-list"></div>
+
+            <form id="comment-form" class="comment-form" onsubmit="return addComment(event)">
+              <input type="text" id="comment-name" placeholder="Seu nome (ou nickname)" required />
+              <textarea id="comment-text" placeholder="Escreva seu comentário..." required></textarea>
+              <div class="row">
+                <button class="btn" type="submit">Enviar comentário</button>
+                <div class="small" style="align-self:center;margin-left:auto">Comentários públicos — respeite as regras.</div>
+              </div>
+            </form>
+          </div>
+        </section>
+
+      </section>
+
+      <aside>
+        <div class="card">
+          <input class="search" id="search" placeholder="Pesquisar posts..." oninput="filterPosts()" />
+          <div style="height:12px"></div>
+          <div class="small">Posts recentes</div>
+          <ul id="recent" style="list-style:none;padding:0;margin:10px 0 0 0;display:flex;flex-direction:column;gap:8px">
+            <!-- preenchido por JS -->
+          </ul>
+        </div>
+
+        <div style="height:12px"></div>
+        <div class="card" style="margin-top:12px">
+          <div class="small">Regras de comentários</div>
+          <ol class="small" style="padding-left:16px;margin-top:8px">
+            <li>Seja respeitoso.</li>
+            <li>Sem spam ou autopromoção.</li>
+            <li>Comentários ofensivos serão removidos.</li>
+          </ol>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    // Simples banco local para posts e comentários (localStorage)
+    const posts = {
+      'post-1':{
+        id:'post-1',
+        title:'Atualização v1.4 — Novo mapa e balanceamentos',
+        author:'Equipe DevGames',
+        date:'12/09/2025',
+        content:`<h2>Atualização v1.4 — Nebula Rift</h2>
+          <p>O mapa "Nebula Rift" chega com 3 novas missões coop, uma arena para 3x3 e ajustes em 7 armas. Agradecemos o feedback da comunidade!</p>
+          <p>Planejamos ajustar mais itens no próximo patch se os testes continuarem positivos.</p>`
+      },
+      'post-2':{
+        id:'post-2',
+        title:'Diário do dev: como criamos o chefe "O Sussurro"',
+        author:'Ana Lopes — Dev Sênior',
+        date:'01/09/2025',
+        content:`<h2>Diário do dev: O Sussurro</h2>
+          <p>Neste post conto sobre a criação do chefe, sua IA e como usamos áudio espacial para amplificar a tensão.</p>
+          <p>Técnicas usadas: state machines, sampled audio layers e testes com jogadores beta.</p>`
+      }
+    };
+
+    // inicializar lista de posts no sidebar
+    function init(){
+      const recent = document.getElementById('recent');
+      recent.innerHTML='';
+      Object.values(posts).forEach(p=>{
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="#" onclick="openPost('${p.id}');return false;" style="color:inherit;text-decoration:none">${p.title}</a>`;
+        recent.appendChild(li);
+      });
+
+      // carregar posts para search/remove
+      window.postElements = Array.from(document.querySelectorAll('.post'));
+    }
+
+    function filterPosts(){
+      const q = document.getElementById('search').value.toLowerCase();
+      window.postElements.forEach(el=>{
+        const txt = el.textContent.toLowerCase();
+        el.style.display = txt.includes(q) ? '' : 'none';
+      });
+    }
+
+    // post view
+    function openPost(id){
+      const view = document.getElementById('post-view');
+      const content = document.getElementById('post-content');
+      const p = posts[id];
+      content.innerHTML = `\n        <div style="display:flex;gap:12px;align-items:center">\n          <div class="avatar">${p.author.split(' ')[0][0]||'D'}</div>\n          <div>\n            <div style="font-weight:700">${p.author}</div>\n            <div class="small">${p.date}</div>\n          </div>\n        </div>\n        <div class="content" style="margin-top:12px">${p.content}</div>\n      `;
+      view.classList.add('show');
+      view.dataset.current = id;
+      renderComments(id);
+      // scroll to top of view
+      view.scrollIntoView({behavior:'smooth'});
+    }
+    function closePost(){
+      const view = document.getElementById('post-view');
+      view.classList.remove('show');
+      view.dataset.current = '';
+    }
+
+    // comentários (armazenados por post em localStorage)
+    function getComments(postId){
+      const raw = localStorage.getItem('comments_'+postId);
+      if(!raw) return [];
+      try{ return JSON.parse(raw);}catch(e){return []}
+    }
+    function saveComments(postId, arr){
+      localStorage.setItem('comments_'+postId, JSON.stringify(arr));
+    }
+
+    function renderComments(postId){
+      const list = document.getElementById('comments-list');
+      list.innerHTML='';
+      const comments = getComments(postId).slice().reverse(); // mais recente em cima
+      if(comments.length===0){ list.innerHTML='<div class="small">Seja o primeiro a comentar!</div>'; return }
+      comments.forEach((c, idx)=>{
+        const div = document.createElement('div');
+        div.className = 'comment';
+        div.innerHTML = `<div style="display:flex;justify-content:space-between;gap:10px"><div><div class="who">${escapeHtml(c.name)}</div><div class="small">${new Date(c.when).toLocaleString()}</div></div><div><button class="btn" onclick="deleteComment('${postId}', ${comments.length-1-idx})">Remover</button></div></div><div class="text">${escapeHtml(c.text)}</div>`;
+        list.appendChild(div);
+      });
+    }
+
+    function addComment(e){
+      e.preventDefault();
+      const view = document.getElementById('post-view');
+      const postId = view.dataset.current;
+      if(!postId) return alert('Abra um post para comentar.');
+      const name = document.getElementById('comment-name').value.trim();
+      const text = document.getElementById('comment-text').value.trim();
+      if(!name||!text) return;
+
+      // filtro simples de palavras proibidas
+      const banned = ['burro','idiota','noob','merda'];
+      const lowered = text.toLowerCase();
+      for(const b of banned){ if(lowered.includes(b)){ return alert('Seu comentário contém linguagem proibida.'); } }
+
+      const arr = getComments(postId);
+      arr.push({name, text, when: Date.now()});
+      saveComments(postId, arr);
+      document.getElementById('comment-form').reset();
+      renderComments(postId);
+      return false;
+    }
+
+    function deleteComment(postId, index){
+      // index é o índice no array reversed mostrado na tela
+      const arr = getComments(postId);
+      // remover por índice real (índice 0 = primeiro em ordem cronológica)
+      const realIndex = arr.length - 1 - index;
+      if(!confirm('Remover este comentário?')) return;
+      arr.splice(realIndex,1);
+      saveComments(postId, arr);
+      renderComments(postId);
+    }
+
+    // escaping para evitar injeção de HTML
+    function escapeHtml(str){
+      return str.replace(/[&<>\"']/g, function(m){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]; });
+    }
+
+    // inicializar
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>

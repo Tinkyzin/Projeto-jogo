@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog - Shadowlight Hub</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="logo">Shadowlight Hub</div>
+    <nav>
+      <a href="blog.html" class="nav-link">Blog</a>
+      <a href="sobre.html" class="nav-link">Sobre Nós</a>
+      <a href="jogos.html" class="nav-link">Jogos</a>
+      <a href="mercadoria.html" class="nav-link">Mercadoria</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="feed" aria-label="Lista de posts">
+      <article class="post" data-id="post-1">
+        <div class="meta">
+          <div class="avatar">DG</div>
+          <div>
+            <div class="author">Equipe DevGames</div>
+            <div class="date">12 de setembro de 2025</div>
+          </div>
+        </div>
+        <h3 class="title">Atualização v1.4 - Novo mapa</h3>
+        <p class="excerpt">Novo mapa "Nebula Rift" com missões cooperativas e ajustes no balanceamento.</p>
+        <button class="btn" onclick="openPost('post-1')">Ler e comentar</button>
+      </article>
+
+      <section id="post-view" class="post-view">
+        <button class="btn" onclick="closePost()">Voltar</button>
+        <div id="post-content"></div>
+        <div class="comments" id="comments-area">
+          <h4>Comentários</h4>
+          <div id="comments-list"></div>
+          <form id="comment-form" onsubmit="return addComment(event)">
+            <input type="text" id="comment-name" placeholder="Seu nome" required>
+            <textarea id="comment-text" placeholder="Escreva seu comentário" required></textarea>
+            <button type="submit" class="btn">Enviar</button>
+          </form>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="blog.js"></script>
+</body>
+</html>
