@@ -1,0 +1,248 @@
+<!DOCTYPE html> 
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog - Shadowlight Hub</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="logo">Shadowlight Hub</div>
+    <nav>
+      <a href="blog.html" class="nav-link active">Blog</a>
+      <a href="sobre.html" class="nav-link">Sobre Nós</a>
+      <a href="jogos.html" class="nav-link">Jogos</a>
+      <a href="mercadoria.html" class="nav-link">Mercadoria</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="feed" aria-label="Lista de posts">
+
+      <!-- Post 1 -->
+      <article class="post" data-id="post-1">
+        <div class="meta">
+          <div class="avatar">DG</div>
+          <div>
+            <div class="author">Equipe DevGames</div>
+            <div class="date">12 de setembro de 2025</div>
+          </div>
+        </div>
+        <h3 class="title">Novo Mapa</h3>
+        <p class="excerpt">Prepare-se para explorar o desconhecido</p>
+        <button class="btn btn-open" onclick="openPost(this, 'post-1')">Ler e comentar</button>
+        <button class="btn btn-back" onclick="closePost(this)" style="display:none;">Voltar</button>
+
+        <section class="post-view" style="display: none;">
+          <div class="post-content"></div>
+          <div class="comments">
+            <h4>Comentários</h4>
+            <div class="comments-list"></div>
+            <form class="comment-form" onsubmit="return addComment(event, this)">
+              <input type="text" placeholder="Seu nome" required>
+              <textarea placeholder="Escreva seu comentário" required></textarea>
+              <button type="submit" class="btn">Enviar</button>
+            </form>
+          </div>
+        </section>
+      </article>
+
+      <!-- Post 2 -->
+      <article class="post" data-id="post-2">
+        <div class="meta">
+          <div class="avatar">DG</div>
+          <div>
+            <div class="author">Equipe DevGames</div>
+            <div class="date">02 de setembro de 2025</div>
+          </div>
+        </div>
+        <h3 class="title">Devlog #5 - Sistema de Combate</h3>
+        <p class="excerpt">Estamos refinando o combate corpo a corpo e adicionando combos elementais para deixar as batalhas mais dinâmicas.</p>
+        <button class="btn btn-open" onclick="openPost(this, 'post-2')">Ler e comentar</button>
+        <button class="btn btn-back" onclick="closePost(this)" style="display:none;">Voltar</button>
+
+        <section class="post-view" style="display: none;">
+          <div class="post-content"></div>
+          <div class="comments">
+            <h4>Comentários</h4>
+            <div class="comments-list"></div>
+            <form class="comment-form" onsubmit="return addComment(event, this)">
+              <input type="text" placeholder="Seu nome" required>
+              <textarea placeholder="Escreva seu comentário" required></textarea>
+              <button type="submit" class="btn">Enviar</button>
+            </form>
+          </div>
+        </section>
+      </article>
+
+      <!-- Post 3 -->
+      <article class="post" data-id="post-3">
+        <div class="meta">
+          <div class="avatar">DG</div>
+          <div>
+            <div class="author">Equipe DevGames</div>
+            <div class="date">15 de agosto de 2025</div>
+          </div>
+        </div>
+        <h3 class="title">Arte Conceitual Revelada</h3>
+        <p class="excerpt">Confira as primeiras imagens da região "Ruínas de Elaris", uma área cheia de mistério e puzzles únicos.</p>
+        <button class="btn btn-open" onclick="openPost(this, 'post-3')">Ler e comentar</button>
+        <button class="btn btn-back" onclick="closePost(this)" style="display:none;">Voltar</button>
+
+        <section class="post-view" style="display: none;">
+          <div class="post-content"></div>
+          <div class="comments">
+            <h4>Comentários</h4>
+            <div class="comments-list"></div>
+            <form class="comment-form" onsubmit="return addComment(event, this)">
+              <input type="text" placeholder="Seu nome" required>
+              <textarea placeholder="Escreva seu comentário" required></textarea>
+              <button type="submit" class="btn">Enviar</button>
+            </form>
+          </div>
+        </section>
+      </article>
+
+      <!-- NOVOS POSTS -->
+      <!-- Post 4 -->
+      <article class="post" data-id="post-4">
+        <div class="meta">
+          <div class="avatar">DG</div>
+          <div>
+            <div class="author">Equipe DevGames</div>
+            <div class="date">20 de julho de 2025</div>
+          </div>
+        </div>
+        <h3 class="title">Novo Boss Revelado</h3>
+        <p class="excerpt">Conheça "O Guardião das Sombras", o primeiro grande desafio do mapa Nebula Rift.</p>
+        <button class="btn btn-open" onclick="openPost(this, 'post-4')">Ler e comentar</button>
+        <button class="btn btn-back" onclick="closePost(this)" style="display:none;">Voltar</button>
+        <section class="post-view" style="display: none;">
+          <div class="post-content"></div>
+          <div class="comments">
+            <h4>Comentários</h4>
+            <div class="comments-list"></div>
+            <form class="comment-form" onsubmit="return addComment(event, this)">
+              <input type="text" placeholder="Seu nome" required>
+              <textarea placeholder="Escreva seu comentário" required></textarea>
+              <button type="submit" class="btn">Enviar</button>
+            </form>
+          </div>
+        </section>
+      </article>
+
+      <!-- Post 5 -->
+      <article class="post" data-id="post-5">
+        <div class="meta">
+          <div class="avatar">DG</div>
+          <div>
+            <div class="author">Equipe DevGames</div>
+            <div class="date">25 de junho de 2025</div>
+          </div>
+        </div>
+        <h3 class="title">Atualização de Habilidades</h3>
+        <p class="excerpt">Novas habilidades de esquiva e ataque elemental foram adicionadas para todos os personagens.</p>
+        <button class="btn btn-open" onclick="openPost(this, 'post-5')">Ler e comentar</button>
+        <button class="btn btn-back" onclick="closePost(this)" style="display:none;">Voltar</button>
+        <section class="post-view" style="display: none;">
+          <div class="post-content"></div>
+          <div class="comments">
+            <h4>Comentários</h4>
+            <div class="comments-list"></div>
+            <form class="comment-form" onsubmit="return addComment(event, this)">
+              <input type="text" placeholder="Seu nome" required>
+              <textarea placeholder="Escreva seu comentário" required></textarea>
+              <button type="submit" class="btn">Enviar</button>
+            </form>
+          </div>
+        </section>
+      </article>
+
+      <!-- Post 6 -->
+      <article class="post" data-id="post-6">
+        <div class="meta">
+          <div class="avatar">DG</div>
+          <div>
+            <div class="author">Equipe DevGames</div>
+            <div class="date">01 de maio de 2025</div>
+          </div>
+        </div>
+        <h3 class="title">Mapa Expandido</h3>
+        <p class="excerpt">Foram desbloqueadas novas áreas secretas em Nebula Rift para exploração avançada.</p>
+        <button class="btn btn-open" onclick="openPost(this, 'post-6')">Ler e comentar</button>
+        <button class="btn btn-back" onclick="closePost(this)" style="display:none;">Voltar</button>
+        <section class="post-view" style="display: none;">
+          <div class="post-content"></div>
+          <div class="comments">
+            <h4>Comentários</h4>
+            <div class="comments-list"></div>
+            <form class="comment-form" onsubmit="return addComment(event, this)">
+              <input type="text" placeholder="Seu nome" required>
+              <textarea placeholder="Escreva seu comentário" required></textarea>
+              <button type="submit" class="btn">Enviar</button>
+            </form>
+          </div>
+        </section>
+      </article>
+
+      <!-- Post 7 -->
+      <article class="post" data-id="post-7">
+        <div class="meta">
+          <div class="avatar">DG</div>
+          <div>
+            <div class="author">Equipe DevGames</div>
+            <div class="date">10 de abril de 2025</div>
+          </div>
+        </div>
+        <h3 class="title">Evento Especial</h3>
+        <p class="excerpt">Um evento temporário adicionou inimigos únicos e recompensas raras para jogadores exploradores.</p>
+        <button class="btn btn-open" onclick="openPost(this, 'post-7')">Ler e comentar</button>
+        <button class="btn btn-back" onclick="closePost(this)" style="display:none;">Voltar</button>
+        <section class="post-view" style="display: none;">
+          <div class="post-content"></div>
+          <div class="comments">
+            <h4>Comentários</h4>
+            <div class="comments-list"></div>
+            <form class="comment-form" onsubmit="return addComment(event, this)">
+              <input type="text" placeholder="Seu nome" required>
+              <textarea placeholder="Escreva seu comentário" required></textarea>
+              <button type="submit" class="btn">Enviar</button>
+            </form>
+          </div>
+        </section>
+      </article>
+
+      <!-- Post 8 -->
+      <article class="post" data-id="post-8">
+        <div class="meta">
+          <div class="avatar">DG</div>
+          <div>
+            <div class="author">Equipe DevGames</div>
+            <div class="date">02 de março de 2025</div>
+          </div>
+        </div>
+        <h3 class="title">Correção de Bugs</h3>
+        <p class="excerpt">Vários bugs menores foram corrigidos, incluindo problemas de colisão e de AI de inimigos.</p>
+        <button class="btn btn-open" onclick="openPost(this, 'post-8')">Ler e comentar</button>
+        <button class="btn btn-back" onclick="closePost(this)" style="display:none;">Voltar</button>
+        <section class="post-view" style="display: none;">
+          <div class="post-content"></div>
+          <div class="comments">
+            <h4>Comentários</h4>
+            <div class="comments-list"></div>
+            <form class="comment-form" onsubmit="return addComment(event, this)">
+              <input type="text" placeholder="Seu nome" required>
+              <textarea placeholder="Escreva seu comentário" required></textarea>
+              <button type="submit" class="btn">Enviar</button>
+            </form>
+          </div>
+        </section>
+      </article>
+
+    </section>
+  </main>
+
+  <script src="blog.js"></script>
+</body>
+</html>
