@@ -160,7 +160,8 @@ function addComment(e, id) {
   return false;
 }
 
-// Segurança básica pra evitar HTML injection
+// Comentarios aparecendo
 function sanitize(str) {
   return str.replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
+
